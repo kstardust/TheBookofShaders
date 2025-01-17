@@ -23,17 +23,17 @@ float blinn_wyvill_cos(float x) {
 }
 
 void main() {
-    float speed = 2.0;
+    float speed = .25;
     float amplitude = 1.0;
-    float freq = 5.0;
+    float freq = .9;
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
 
     float x = abs(fract(speed * u_time + freq * st.x) - 0.5) / 0.5;
     float y = blinn_wyvill_cos(x) * amplitude;
 
-    vec3 bg = vec3(0.2, 0.2, 0.2);
+    vec3 bg = vec3(st.x, y, 1.0);
 
-    vec3 line_color = vec3(0.0, 0.8, 0.8);
+    vec3 line_color = vec3(y, st.x, 0.8);
     float percent = plot_curve(st, y);
     vec3 color = bg * (1.0-percent) + line_color * (percent);
     gl_FragColor = vec4(color, 1.0);
