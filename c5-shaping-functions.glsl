@@ -12,17 +12,13 @@ float plot_x(vec2 st) {
     return max(a,b);
 }
 
-float plot_curve(vec2 st, float per) {
-  return 1.0-smoothstep(0.0, 0.02, abs(st.y-per));
-}
-
 void main() {
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
-    float y = fract(sin(st.x));
+    float y = st.x;
     vec3 bg = vec3(y);
 
     vec3 line_color = vec3(0.0, 1.0, 0.0);
-    float percent = plot_curve(st, y);
+    float percent = plot_x(st);
     vec3 color = bg * (1.0-percent) + line_color * (percent);
     gl_FragColor = vec4(color, 1.0);
 }
