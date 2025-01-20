@@ -24,8 +24,8 @@ float blinn_wyvill_cos(float x) {
 
 float double_cubic_seat(float x, float a, float b) {
     float epislon = 0.00001;
-    a = clamp(0.0 + epislon, 1.0 - epislon, a);
-    b = clamp(0.0, 1.0, b);
+    a = clamp(a, 0.0 + epislon, 1.0 - epislon);
+    b = clamp(b, 0.0, 1.0);
 
     float y = 0.0;
     if (x <= a) {
