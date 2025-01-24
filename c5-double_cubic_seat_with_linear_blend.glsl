@@ -14,28 +14,6 @@ float plot_curve(vec2 coord, float pct) {
     return 1.0-smoothstep(0.0, 0.02, abs(coord.y-pct));
 }
 
-float blinn_wyvill_cos(float x) {
-    float x2 = x * x;
-    float x4 = x2 * x2;
-    float x6 = x4 * x2;
-
-    return (4.0 / 9.0) * x6 - (17.0 / 9.0) * x4 + (22.0 / 9.0) * x2;
-}
-
-float double_cubic_seat(float x, float a, float b) {
-    float epislon = 0.00001;
-    a = clamp(a, 0.0 + epislon, 1.0 - epislon);
-    b = clamp(b, 0.0, 1.0);
-
-    float y = 0.0;
-    if (x <= a) {
-        y = b - b * pow(1.0 - x/a, 3.0);
-    } else {
-        y = b + (1.0 - b) * pow((x-a)/(1.0-a), 3.0);
-    }
-    return y;
-}
-
 float double_cubic_seat_with_linear_blend(float x, float a, float b) {
     float epislon = 0.00001;
     a = clamp(0.0 + epislon, 1.0 - epislon, a);
@@ -56,8 +34,6 @@ void main() {
     float freq = .9;
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
 
-    //float x = abs(fract(speed * u_time + freq * st.x) - 0.5) / 0.5;
-    //float y = blinn_wyvill_cos(x) * amplitude;
     vec2 par = u_mouse / u_resolution;
 
     float y = double_cubic_seat_with_linear_blend(st.x, par.x, par.y);

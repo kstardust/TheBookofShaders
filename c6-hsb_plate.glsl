@@ -23,7 +23,7 @@ void main() {
     vec2 ct = 0.5 - st;
 
     // convert to polar coordination
-    float a = fract(atan(ct.y, ct.x) / (2.0*PI) + u_time);
+    float a = fract(atan(ct.y, ct.x) / (2.0*PI) -u_time);
     float r = 2.0*length(ct.xy);
     if (r > 1.0)
         r = 0.0;
