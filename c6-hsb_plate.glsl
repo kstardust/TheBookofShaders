@@ -23,9 +23,10 @@ void main() {
     vec2 ct = 0.5 - st;
 
     // convert to polar coordination
-    float a = atan(ct.y, ct.x) / (2.0*PI) + 0.5;
+    float a = fract(atan(ct.y, ct.x) / (2.0*PI) + u_time);
     float r = 2.0*length(ct.xy);
-
+    if (r > 1.0)
+        r = 0.0;
     vec3 color = hsb2rgb(vec3(a, r, 1.0));
     gl_FragColor = vec4(color, 1.0);
 }
