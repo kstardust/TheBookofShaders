@@ -9,9 +9,6 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 
-vec3 colorA = vec3(0.149,0.141,0.912);
-vec3 colorB = vec3(1.000,0.833,0.224);
-
 float plot(vec2 st, float y) {
     return 1.0 - smoothstep(0.0, 0.005, abs(y-st.y));
 }
@@ -28,8 +25,8 @@ void main() {
     vec2 st = gl_FragCoord.xy / u_resolution;
 
     vec3 bg = vec3(1.0);
-    bg.r = sin(st.x);
-    bg.g = cos(st.x);
+    bg.r = (sin(st.x + u_time) * 0.5) + 0.5;
+    bg.g = (cos(st.x + u_time) * 0.5) + 0.5;
     bg.b = pow(st.x, 0.03);
 
     vec3 color = bg;
