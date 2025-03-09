@@ -24,7 +24,13 @@ float step_rect(vec2 st, vec2 size, vec2 bottom_left) {
 
 float rect_nofill(vec2 st, vec2 size, vec2 bottom_left,
             float border_w) {
-    //border_w = clamp(border_w, 0.0, min(size.x, size.y));
+    float r = step_rect(st, size, bottom_left);
+    r *= 1.0-step_rect(st, size-2.0*border_w, bottom_left+border_w);
+    return r;
+}
+
+float rect_smooth_nofill(vec2 st, vec2 size, vec2 bottom_left,
+            float border_w) {
     float r = step_rect(st, size, bottom_left);
     r *= 1.0-step_rect(st, size-2.0*border_w, bottom_left+border_w);
     return r;
@@ -34,5 +40,6 @@ void main() {
     vec2 st = gl_FragCoord.xy / u_resolution;
 
     vec3 color = vec3(rect_nofill(st, vec2(0.8, 0.4), vec2(0.2, 0.1), 0.02));
+    color += vec3(rect_nofill(st, vec2(0.6, 0.9), vec2(0.3, 0.3), 0.01));
     gl_FragColor = vec4(color, 1.0);
 }
